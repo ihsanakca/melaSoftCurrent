@@ -43,29 +43,7 @@ public class DashboardPage extends BasePage {
     @FindBy(xpath = "(//div[text()='Delete Company'])[2]")
     public WebElement deleteCompanyBtn;
 
-    @FindBy(css = "[autocapitalize='sentences']")
-    public WebElement deleteConfirmationBar;
 
-    @FindBy(xpath = "(//div[text()='Delete Company'])[4]")
-    public WebElement deleteCompanyConfirmBtn;
-
-    @FindBy(xpath = "(//div[text()='Plan & Billing'])[2]")
-    public WebElement planAndBillingBtn;
-
-    @FindBy(xpath = "(//div[text()='Plan & Billing'])[2]")
-    public WebElement planAndBillingPageTitle;
-
-    @FindBy (xpath = "//div[text()='Upgrade Plan']")
-    public WebElement upgradePlanBtn;
-
-    @FindBy(xpath = "//div[text()='Choose your right plan!']")
-    public WebElement upgradePlanChangePageTitle;
-
-    @FindBy(xpath = "(//div[text()='UPGRADE'])[2]")
-    public WebElement standartUpgradeBtn;
-
-    @FindBy(xpath = "//div[text()='Payment']")
-    public WebElement payementPageTitle;
     public void fillingCompanyInformationForm() {
         Actions action = new Actions(Driver.get());
         action.click(vatIdBox)
@@ -82,16 +60,7 @@ public class DashboardPage extends BasePage {
                 .perform();
     }
 
-    public void deleteCompanyAndVerify(String confirmationText){
-        dashboardSettingsBtn.click();
-        dashboardCompanySettingsBtn.click();
-        BrowserUtils.scrollToElement(deleteCompanyBtn);
-        deleteCompanyBtn.click();
-        deleteConfirmationBar.sendKeys(confirmationText);
-        deleteCompanyConfirmBtn.click();
-        Assert.assertTrue(createCompanyBtnLeft.isDisplayed());
 
-    }
 
 
 }
