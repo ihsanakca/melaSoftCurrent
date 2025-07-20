@@ -1,7 +1,9 @@
 package com.melaSoft.pages;
 
+import com.melaSoft.utils.BrowserUtils;
 import com.melaSoft.utils.ConfigurationReader;
 import com.melaSoft.utils.Driver;
+import org.junit.Assert;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -32,6 +34,38 @@ public class DashboardPage extends BasePage {
     @FindBy(xpath = "//*[text()='Anatolia supermarkt']")
     public WebElement createdCompanyName;
 
+    @FindBy(xpath = "//div[text()='Settings']")
+    public WebElement dashboardSettingsBtn;
+
+    @FindBy(xpath = "//div[text()='Company Settings']")
+    public WebElement dashboardCompanySettingsBtn;
+
+    @FindBy(xpath = "(//div[text()='Delete Company'])[2]")
+    public WebElement deleteCompanyBtn;
+
+    @FindBy(css = "[autocapitalize='sentences']")
+    public WebElement deleteConfirmationBar;
+
+    @FindBy(xpath = "(//div[text()='Delete Company'])[4]")
+    public WebElement deleteCompanyConfirmBtn;
+
+    @FindBy(xpath = "(//div[text()='Plan & Billing'])[2]")
+    public WebElement planAndBillingBtn;
+
+    @FindBy(xpath = "(//div[text()='Plan & Billing'])[2]")
+    public WebElement planAndBillingPageTitle;
+
+    @FindBy (xpath = "//div[text()='Upgrade Plan']")
+    public WebElement upgradePlanBtn;
+
+    @FindBy(xpath = "//div[text()='Choose your right plan!']")
+    public WebElement upgradePlanChangePageTitle;
+
+    @FindBy(xpath = "(//div[text()='UPGRADE'])[2]")
+    public WebElement standartUpgradeBtn;
+
+    @FindBy(xpath = "//div[text()='Payment']")
+    public WebElement payementPageTitle;
     public void fillingCompanyInformationForm() {
         Actions action = new Actions(Driver.get());
         action.click(vatIdBox)
@@ -46,6 +80,17 @@ public class DashboardPage extends BasePage {
                 .sendKeys(ConfigurationReader.get("accountHolder")+Keys.TAB)
                 .sendKeys(ConfigurationReader.get("bic")+Keys.TAB+Keys.TAB+Keys.ENTER)
                 .perform();
+    }
+
+    public void deleteCompanyAndVerify(String confirmationText){
+        dashboardSettingsBtn.click();
+        dashboardCompanySettingsBtn.click();
+        BrowserUtils.scrollToElement(deleteCompanyBtn);
+        deleteCompanyBtn.click();
+        deleteConfirmationBar.sendKeys(confirmationText);
+        deleteCompanyConfirmBtn.click();
+        Assert.assertTrue(createCompanyBtnLeft.isDisplayed());
+
     }
 
 
